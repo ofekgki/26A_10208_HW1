@@ -86,14 +86,9 @@ class MainActivity : AppCompatActivity() {
     //Others
 
     private var roosterPosition: Int = 1 //0 - Left, 1 - Middle, 2 - Right
-    private val panVisible =  Array<AppCompatImageView>(
-        18,initArray()) //0 - Invisible, 1 - Visible
-
-    private fun initArray(): (Int) -> AppCompatImageView {
-        for (i in 0..17){
-            panVisible[i] = Main_IMG_Pan1
-        }
-    }
+//    private val panVisible =  Array<AppCompatImageView>(
+//        18,initArray()) //0 - Invisible, 1 - Visible
+//
 
     private var panInLastLine: Int = -1 ////0 - Left, 1 - Middle, 2 - Right, -1 No Pan In Last Lane
 
@@ -115,12 +110,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun startPans() {
-        var panNumber = Random.nextInt(3)+1
-        panVisible[panNumber] = 1
-
-
-    }
+//    private fun startPans() {
+//        var panNumber = Random.nextInt(3)+1
+//        panVisible[panNumber] = 1
+//
+//    }
 
 
     private fun findViews() {
@@ -155,7 +149,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         updateRooster()
-        panVisible.fill(0)
+        //panVisible.fill(0)
         Main_FAB_Right.setOnClickListener { view -> moveRight() }
         Main_FAB_Left.setOnClickListener { view -> moveLeft() }
     }
