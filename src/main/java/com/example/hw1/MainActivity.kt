@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         findViews()
         initViews()
-        startPans()
+        //startPans()
 
 
     }
