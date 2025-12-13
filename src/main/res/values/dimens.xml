@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="Default_Margin">24px</dimen>
+    <dimen name="Default_Margin">24dp</dimen>
     <dimen name="Fab_Default_Size">48dp</dimen>
     <dimen name="Separator_margin">28dp</dimen>
     <dimen name="Lane_Start">88dp</dimen>
