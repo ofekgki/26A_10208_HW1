@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background_Color"
+    tools:context=".MainActivity">
+
+    <!--     Hearts-->
+
+    <LinearLayout
+        android:id="@+id/Main_Hearts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/Default_Margin"
+        android:layout_marginRight="@dimen/Default_Margin">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Heart_L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/heart_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Heart_M"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/heart_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Heart_R"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/heart_svgrepo_com" />
+
+    </LinearLayout>
+
+    <!--    Roosters-->
+
+    <LinearLayout
+        android:id="@+id/Main_Roosters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/Lane_Start">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Rooster_R"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/rooster_svgrepo_com"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Rooster_M"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/rooster_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Rooster_L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/rooster_svgrepo_com" />
+
+    </LinearLayout>
+
+    <!--    Pans 1-->
+
+    <LinearLayout
+        android:id="@+id/Main_PanRow_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_Hearts"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+    </LinearLayout>
+
+    <!--    Pans 2-->
+
+    <LinearLayout
+        android:id="@+id/Main_Panrow_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_PanRow_1"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+    </LinearLayout>
+
+    <!--    Pans 3-->
+
+    <LinearLayout
+        android:id="@+id/Main_PanRow_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_Panrow_2"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+    </LinearLayout>
+
+    <!--    Pans 4-->
+
+    <LinearLayout
+        android:id="@+id/Main_PanRow_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_PanRow_3"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+    </LinearLayout>
+
+    <!--    Pans 5-->
+
+    <LinearLayout
+        android:id="@+id/Main_PanRow_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_PanRow_4"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+    </LinearLayout>
+
+    <!--    Pans 6-->
+
+    <LinearLayout
+        android:id="@+id/Main_PanRow_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Main_PanRow_5"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Separator_margin"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Main_IMG_Pan18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+    </LinearLayout>
+
+    <!--    Fabs-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Main_FAB_Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/Default_Margin"
+        android:clickable="true"
+        app:fabCustomSize="@dimen/Fab_Default_Size"
+        app:srcCompat="@drawable/left_2_svgrepo_com" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Main_FAB_Right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/Default_Margin"
+        android:clickable="true"
+        app:fabCustomSize="@dimen/Fab_Default_Size"
+        app:srcCompat="@drawable/right_2_svgrepo_com" />
+
+
+</RelativeLayout>
