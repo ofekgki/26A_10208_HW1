@@ -1,25 +1,26 @@
 package com.example.hw1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.hw1.utilities.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     //Hearts
-
-    private lateinit var Main_IMG_Heart_L: AppCompatImageView
-
-    private lateinit var Main_IMG_Heart_M: AppCompatImageView
-
-    private lateinit var Main_IMG_Heart_R: AppCompatImageView
+    private lateinit var Main_IMG_hearts: Array<AppCompatImageView>
 
     //Roosters
 
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var Main_IMG_Rooster_L: AppCompatImageView
 
+    private lateinit var Main_IMG_pans: Array<AppCompatImageView>
+
+    private val isVisible = IntArray(18)
+
+    /*
     //Pans Row 1
 
     private lateinit var Main_IMG_Pan1: AppCompatImageView
@@ -76,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var Main_IMG_Pan17: AppCompatImageView
 
     private lateinit var Main_IMG_Pan18: AppCompatImageView
+*/
 
     //Fabs
 
@@ -86,11 +93,10 @@ class MainActivity : AppCompatActivity() {
     //Others
 
     private var roosterPosition: Int = 1 //0 - Left, 1 - Middle, 2 - Right
-//    private val panVisible =  Array<AppCompatImageView>(
-//        18,initArray()) //0 - Invisible, 1 - Visible
-//
 
     private var panInLastLine: Int = -1 ////0 - Left, 1 - Middle, 2 - Right, -1 No Pan In Last Lane
+
+    private lateinit var timerJob: Job
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,59 +109,114 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
         findViews()
         initViews()
-        //startPans()
+        startGame()
 
 
     }
 
-//    private fun startPans() {
-//        var panNumber = Random.nextInt(3)+1
-//        panVisible[panNumber] = 1
-//
-//    }
+    // Start Timer Coroutine For Pans UI Update
+    private fun startGame() {
+
+        timerJob = lifecycleScope.launch {
+            while (isActive) {
+                Log.d("Timer Runnable", "Active: \$isActive")
+                // Refresh UI:
+                updatePanUI()
+                delay(Constants.Timer.DELAY)
+            }
+        }
+    }
+
+    // Choose random Pan To Add & Call For Func To - Update The Game Board, Check If Hit Happened
+    private fun updatePanUI() {
+        updateVisibleArray()
+        var randomPan = Random.nextInt(3)
+        isVisible[randomPan] = 1
+        refreshUI()
+
+        //checkForHit()
+    }
+
+    //Change Visibility Of Pans And 'Move' them Down
+    private fun refreshUI() {
+        Main_IMG_pans.forEachIndexed { index, img ->
+            if(isVisible[index] == 1){
+                img.visibility = View.VISIBLE
+            }
+            else
+                img.visibility = View.INVISIBLE
+        }
+    }
+
+    //Check If There Is A Collision Between A Rooster And A Pan
+    private fun checkForHit() {
+        TODO("Not yet implemented")
+    }
+
+    //Update The Array That Track Visibility Of The Pans
+    private fun updateVisibleArray() {
+        Main_IMG_pans.forEachIndexed { index, img ->
+            if(img.visibility == View.VISIBLE && index < 15){
+                isVisible[index] = 0
+                isVisible[index + 3] = 1
+            }
+            if(img.visibility == View.VISIBLE && index >= 15){
+                isVisible[index] = 0
+            }
+
+         }
+    }
 
 
     private fun findViews() {
-        Main_IMG_Heart_L = findViewById(R.id.Main_IMG_Heart_L)
-        Main_IMG_Heart_M = findViewById(R.id.Main_IMG_Heart_M)
-        Main_IMG_Heart_R = findViewById(R.id.Main_IMG_Heart_R)
+
+        Main_IMG_hearts = arrayOf(
+            findViewById(R.id.Main_IMG_Heart_L),
+            findViewById(R.id.Main_IMG_Heart_M),
+            findViewById(R.id.Main_IMG_Heart_R)
+        )
         Main_IMG_Rooster_R = findViewById(R.id.Main_IMG_Rooster_R)
         Main_IMG_Rooster_M = findViewById(R.id.Main_IMG_Rooster_M)
         Main_IMG_Rooster_L = findViewById(R.id.Main_IMG_Rooster_L)
-        Main_IMG_Pan1 = findViewById(R.id.Main_IMG_Pan1)
-        Main_IMG_Pan2 = findViewById(R.id.Main_IMG_Pan2)
-        Main_IMG_Pan3 = findViewById(R.id.Main_IMG_Pan3)
-        Main_IMG_Pan4 = findViewById(R.id.Main_IMG_Pan4)
-        Main_IMG_Pan5 = findViewById(R.id.Main_IMG_Pan5)
-        Main_IMG_Pan6 = findViewById(R.id.Main_IMG_Pan6)
-        Main_IMG_Pan7 = findViewById(R.id.Main_IMG_Pan7)
-        Main_IMG_Pan8 = findViewById(R.id.Main_IMG_Pan8)
-        Main_IMG_Pan9 = findViewById(R.id.Main_IMG_Pan9)
-        Main_IMG_Pan10 = findViewById(R.id.Main_IMG_Pan10)
-        Main_IMG_Pan11 = findViewById(R.id.Main_IMG_Pan11)
-        Main_IMG_Pan12 = findViewById(R.id.Main_IMG_Pan12)
-        Main_IMG_Pan13 = findViewById(R.id.Main_IMG_Pan13)
-        Main_IMG_Pan14 = findViewById(R.id.Main_IMG_Pan14)
-        Main_IMG_Pan15 = findViewById(R.id.Main_IMG_Pan15)
-        Main_IMG_Pan16 = findViewById(R.id.Main_IMG_Pan16)
-        Main_IMG_Pan17 = findViewById(R.id.Main_IMG_Pan17)
-        Main_IMG_Pan18 = findViewById(R.id.Main_IMG_Pan18)
-        Main_FAB_Left = findViewById(R.id.Main_FAB_Left)
+
+        Main_IMG_pans = arrayOf(
+            findViewById(R.id.Main_IMG_Pan1),
+            findViewById(R.id.Main_IMG_Pan2),
+            findViewById(R.id.Main_IMG_Pan3),
+            findViewById(R.id.Main_IMG_Pan4),
+            findViewById(R.id.Main_IMG_Pan5),
+            findViewById(R.id.Main_IMG_Pan6),
+            findViewById(R.id.Main_IMG_Pan7),
+            findViewById(R.id.Main_IMG_Pan8),
+            findViewById(R.id.Main_IMG_Pan9),
+            findViewById(R.id.Main_IMG_Pan10),
+            findViewById(R.id.Main_IMG_Pan11),
+            findViewById(R.id.Main_IMG_Pan12),
+            findViewById(R.id.Main_IMG_Pan13),
+            findViewById(R.id.Main_IMG_Pan14),
+            findViewById(R.id.Main_IMG_Pan15),
+            findViewById(R.id.Main_IMG_Pan16),
+            findViewById(R.id.Main_IMG_Pan17),
+            findViewById(R.id.Main_IMG_Pan18)
+        )
+
         Main_FAB_Right = findViewById(R.id.Main_FAB_Right)
+        Main_FAB_Left = findViewById(R.id.Main_FAB_Left)
 
     }
 
     private fun initViews() {
         updateRooster()
-        //panVisible.fill(0)
         Main_FAB_Right.setOnClickListener { view -> moveRight() }
         Main_FAB_Left.setOnClickListener { view -> moveLeft() }
+
     }
 
     //update rooster position in the Main Activity
-    private fun updateRooster(){
+    private fun updateRooster() {
         Main_IMG_Rooster_L.visibility = View.INVISIBLE
         Main_IMG_Rooster_M.visibility = View.INVISIBLE
         Main_IMG_Rooster_R.visibility = View.INVISIBLE

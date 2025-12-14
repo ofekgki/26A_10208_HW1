@@ -87,7 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Main_Hearts"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan1"
@@ -116,11 +117,12 @@
     <!--    Pans 2-->
 
     <LinearLayout
-        android:id="@+id/Main_Panrow_2"
+        android:id="@+id/Main_PanRow_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Main_PanRow_1"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan4"
@@ -151,8 +153,9 @@
         android:id="@+id/Main_PanRow_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Main_Panrow_2"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@id/Main_PanRow_2"
+        android:layout_centerHorizontal="true"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan7"
@@ -217,7 +220,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Main_PanRow_4"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan13"
@@ -249,7 +253,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Main_PanRow_5"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan16"
@@ -284,6 +289,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/Default_Margin"
         android:clickable="true"
+        android:contentDescription="@string/left_arrow"
         app:fabCustomSize="@dimen/Fab_Default_Size"
         app:srcCompat="@drawable/left_2_svgrepo_com" />
 
@@ -295,6 +301,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/Default_Margin"
         android:clickable="true"
+        android:contentDescription="@string/right_arrow"
         app:fabCustomSize="@dimen/Fab_Default_Size"
         app:srcCompat="@drawable/right_2_svgrepo_com" />
 

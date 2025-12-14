@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HW1</string>
+    <string name="left_arrow">Left_Arrow</string>
+    <string name="right_arrow">Right Arrow</string>
 </resources>
