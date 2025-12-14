@@ -80,14 +80,26 @@
 
     </LinearLayout>
 
+    <!--Pans Container-->
+    <LinearLayout
+        android:id="@+id/Main_Pans_Container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Main_Hearts"
+        android:layout_above="@id/Main_FAB_Right"
+        android:weightSum="6"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+        
     <!--    Pans 1-->
 
     <LinearLayout
         android:id="@+id/Main_PanRow_1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_Hearts"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -119,9 +131,9 @@
     <LinearLayout
         android:id="@+id/Main_PanRow_2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_PanRow_1"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -152,9 +164,9 @@
     <LinearLayout
         android:id="@+id/Main_PanRow_3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_PanRow_2"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -186,9 +198,10 @@
     <LinearLayout
         android:id="@+id/Main_PanRow_4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_PanRow_3"
-        android:layout_centerHorizontal="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan10"
@@ -218,9 +231,9 @@
     <LinearLayout
         android:id="@+id/Main_PanRow_5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_PanRow_4"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -251,9 +264,9 @@
     <LinearLayout
         android:id="@+id/Main_PanRow_6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Main_PanRow_5"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -269,14 +282,18 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/Separator_margin"
             android:visibility="invisible"
-            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/Main_IMG_Pan18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com" />
+            app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com"
+            />
+    </LinearLayout>
+
     </LinearLayout>
 
     <!--    Fabs-->
@@ -291,7 +308,9 @@
         android:clickable="true"
         android:contentDescription="@string/left_arrow"
         app:fabCustomSize="@dimen/Fab_Default_Size"
-        app:srcCompat="@drawable/left_2_svgrepo_com" />
+        android:layoutDirection="ltr"
+        app:srcCompat="@drawable/left_2_svgrepo_com"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Main_FAB_Right"
@@ -303,7 +322,9 @@
         android:clickable="true"
         android:contentDescription="@string/right_arrow"
         app:fabCustomSize="@dimen/Fab_Default_Size"
-        app:srcCompat="@drawable/right_2_svgrepo_com" />
+        android:layoutDirection="ltr"
+        app:srcCompat="@drawable/right_2_svgrepo_com"
+        />
 
 
 </RelativeLayout>

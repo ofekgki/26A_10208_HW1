@@ -98,6 +98,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var timerJob: Job
 
+    private var spaceFlag: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,8 +135,12 @@ class MainActivity : AppCompatActivity() {
     // Choose random Pan To Add & Call For Func To - Update The Game Board, Check If Hit Happened
     private fun updatePanUI() {
         updateVisibleArray()
-        var randomPan = Random.nextInt(3)
-        isVisible[randomPan] = 1
+        if (spaceFlag == 0) {
+            val randomPan = Random.nextInt(3)
+            isVisible[randomPan] = 1
+            spaceFlag = 1
+        } else
+            spaceFlag = 0
         refreshUI()
 
         //checkForHit()
@@ -143,31 +149,59 @@ class MainActivity : AppCompatActivity() {
     //Change Visibility Of Pans And 'Move' them Down
     private fun refreshUI() {
         Main_IMG_pans.forEachIndexed { index, img ->
-            if(isVisible[index] == 1){
+            if (isVisible[index] == 1) {
                 img.visibility = View.VISIBLE
-            }
-            else
+                when (index) {
+                    15 -> panInLastLine = 0
+                    16 -> panInLastLine = 1
+                    17 -> panInLastLine = 2
+                }
+            } else
                 img.visibility = View.INVISIBLE
+
         }
     }
 
+
     //Check If There Is A Collision Between A Rooster And A Pan
     private fun checkForHit() {
+        if (panInLastLine == roosterPosition)
+            makeHit()
+
+    }
+
+    //Calling a Function For Heart Decrease & Calling Functions For Toast & Vibrate
+    private fun makeHit() {
+        heartDecrease()
+        makeToast()
+        makeVibration()
+
+    }
+
+    private fun heartDecrease() {
+        TODO("Not yet implemented")
+    }
+
+    private fun makeToast() {
+        TODO("Not yet implemented")
+    }
+
+    private fun makeVibration() {
         TODO("Not yet implemented")
     }
 
     //Update The Array That Track Visibility Of The Pans
     private fun updateVisibleArray() {
         Main_IMG_pans.forEachIndexed { index, img ->
-            if(img.visibility == View.VISIBLE && index < 15){
+            if (img.visibility == View.VISIBLE && index < 15) {
                 isVisible[index] = 0
                 isVisible[index + 3] = 1
             }
-            if(img.visibility == View.VISIBLE && index >= 15){
+            if (img.visibility == View.VISIBLE && index >= 15) {
                 isVisible[index] = 0
             }
 
-         }
+        }
     }
 
 
@@ -210,8 +244,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         updateRooster()
-        Main_FAB_Right.setOnClickListener { view -> moveRight() }
-        Main_FAB_Left.setOnClickListener { view -> moveLeft() }
+        Main_FAB_Left.setOnClickListener { view ->
+            moveLeft()
+            Log.d("FAB", "Start pressed")
+        }
+        Main_FAB_Right.setOnClickListener { view ->
+            moveRight()
+            Log.d("FAB", "End pressed")
+        }
 
     }
 
