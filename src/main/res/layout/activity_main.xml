@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background_Color"
+    android:background="@drawable/farm"
+    android:layoutDirection="rtl"
     tools:context=".MainActivity">
 
     <!--     Hearts-->
@@ -293,6 +294,13 @@
             app:srcCompat="@drawable/frying_pan_and_fried_egg_svgrepo_com"
             />
     </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/farm" />
 
     </LinearLayout>
 

@@ -4,4 +4,6 @@
     <dimen name="Fab_Default_Size">48dp</dimen>
     <dimen name="Separator_margin">28dp</dimen>
     <dimen name="Lane_Start">104dp</dimen>
+    <dimen name="Default_StringSize">18sp</dimen>
+    <dimen name="End_Game_Massage_SIze">64sp</dimen>
 </resources>

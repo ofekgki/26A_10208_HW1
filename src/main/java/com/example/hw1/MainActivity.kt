@@ -1,5 +1,6 @@
 package com.example.hw1
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.hw1.utilities.Constants
+import com.example.hw1.utilities.SignalManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -94,11 +96,13 @@ class MainActivity : AppCompatActivity() {
 
     private var roosterPosition: Int = 1 //0 - Left, 1 - Middle, 2 - Right
 
-    private var panInLastLine: Int = -1 ////0 - Left, 1 - Middle, 2 - Right, -1 No Pan In Last Lane
+    private lateinit var timerJob: Job //Timer For Coroutine
 
-    private lateinit var timerJob: Job
+    private var spaceFlag: Int = 0 //Boolean For Spacing The Lines
 
-    private var spaceFlag: Int = 0
+    private var hits: Int = 0
+
+    private var isGameOver: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,92 +122,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-    // Start Timer Coroutine For Pans UI Update
-    private fun startGame() {
-
-        timerJob = lifecycleScope.launch {
-            while (isActive) {
-                Log.d("Timer Runnable", "Active: \$isActive")
-                // Refresh UI:
-                updatePanUI()
-                delay(Constants.Timer.DELAY)
-            }
-        }
-    }
-
-    // Choose random Pan To Add & Call For Func To - Update The Game Board, Check If Hit Happened
-    private fun updatePanUI() {
-        updateVisibleArray()
-        if (spaceFlag == 0) {
-            val randomPan = Random.nextInt(3)
-            isVisible[randomPan] = 1
-            spaceFlag = 1
-        } else
-            spaceFlag = 0
-        refreshUI()
-
-        //checkForHit()
-    }
-
-    //Change Visibility Of Pans And 'Move' them Down
-    private fun refreshUI() {
-        Main_IMG_pans.forEachIndexed { index, img ->
-            if (isVisible[index] == 1) {
-                img.visibility = View.VISIBLE
-                when (index) {
-                    15 -> panInLastLine = 0
-                    16 -> panInLastLine = 1
-                    17 -> panInLastLine = 2
-                }
-            } else
-                img.visibility = View.INVISIBLE
-
-        }
-    }
-
-
-    //Check If There Is A Collision Between A Rooster And A Pan
-    private fun checkForHit() {
-        if (panInLastLine == roosterPosition)
-            makeHit()
-
-    }
-
-    //Calling a Function For Heart Decrease & Calling Functions For Toast & Vibrate
-    private fun makeHit() {
-        heartDecrease()
-        makeToast()
-        makeVibration()
-
-    }
-
-    private fun heartDecrease() {
-        TODO("Not yet implemented")
-    }
-
-    private fun makeToast() {
-        TODO("Not yet implemented")
-    }
-
-    private fun makeVibration() {
-        TODO("Not yet implemented")
-    }
-
-    //Update The Array That Track Visibility Of The Pans
-    private fun updateVisibleArray() {
-        Main_IMG_pans.forEachIndexed { index, img ->
-            if (img.visibility == View.VISIBLE && index < 15) {
-                isVisible[index] = 0
-                isVisible[index + 3] = 1
-            }
-            if (img.visibility == View.VISIBLE && index >= 15) {
-                isVisible[index] = 0
-            }
-
-        }
-    }
-
 
     private fun findViews() {
 
@@ -255,6 +173,123 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // Start Timer Coroutine For Pans UI Update
+    private fun startGame() {
+
+        timerJob = lifecycleScope.launch {
+            while (isActive) {
+                Log.d("Timer Runnable", "Active: \$isActive")
+                // Refresh UI:
+                updatePanUI()
+                delay(Constants.Timer.DELAY)
+                checkIfGameOver("Game Over!")
+            }
+        }
+    }
+
+    fun checkIfGameOver(message: String) {
+        if (isGameOver) {
+            val intent = Intent(this, GameEndScreen::class.java)
+            val bundle = Bundle()
+            bundle.putString(Constants.BundleKeys.MESSAGE_KEY, message)
+            intent.putExtras(bundle)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    // Choose random Pan To Add & Call For Func To - Update The Game Board, Check If Hit Happened
+    private fun updatePanUI() {
+        updateVisibleArray()
+        if (spaceFlag == 0) {
+            val randomPan = Random.nextInt(3)
+            isVisible[randomPan] = 1
+            spaceFlag = 1
+        } else
+            spaceFlag = 0
+        refreshUI()
+        checkForHit()
+
+
+    }
+
+    //Change Visibility Of Pans And 'Move' them Down
+    private fun refreshUI() {
+        Main_IMG_pans.forEachIndexed { index, img ->
+            if (isVisible[index] == 1) {
+                img.visibility = View.VISIBLE
+            } else
+                img.visibility = View.INVISIBLE
+
+        }
+    }
+
+    //Check If There Is A Collision Between A Rooster And A Pan
+    private fun checkForHit() {
+        val hitIndex = when (roosterPosition) {
+            0 -> 17
+            1 -> 16
+            else -> 15
+        }
+
+        if (isVisible[hitIndex] == 1) {
+            makeHit()
+            isVisible[hitIndex] = 0
+            refreshUI()
+        }
+    }
+
+    //Calling a Function For Heart Decrease & Calling Functions For Toast & Vibrate
+    private fun makeHit() {
+        heartDecrease()
+        makeToast()
+        makeVibration()
+
+    }
+
+    //Heart Ui Update
+    private fun heartDecrease() {
+        hits++
+        Main_IMG_hearts[Main_IMG_hearts.size - hits]
+            .visibility = View.INVISIBLE
+
+        if (hits == 3) {
+            isGameOver = true
+        }
+
+    }
+
+    //Toast Function
+    private fun makeToast() {
+        SignalManager
+            .getInstance()
+            .toast(
+                "You've Been Hit!",
+                SignalManager.ToastLength.Long
+            )
+    }
+
+    //Vibrate Function
+    private fun makeVibration() {
+        SignalManager
+            .getInstance()
+            .vibrate()
+    }
+
+    //Update The Array That Track Visibility Of The Pans
+    private fun updateVisibleArray() {
+        Main_IMG_pans.forEachIndexed { index, img ->
+            if (img.visibility == View.VISIBLE && index < 15) {
+                isVisible[index] = 0
+                isVisible[index + 3] = 1
+            }
+            if (img.visibility == View.VISIBLE && index >= 15) {
+                isVisible[index] = 0
+            }
+
+        }
+    }
+
     //update rooster position in the Main Activity
     private fun updateRooster() {
         Main_IMG_Rooster_L.visibility = View.INVISIBLE
@@ -284,5 +319,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
 }
+

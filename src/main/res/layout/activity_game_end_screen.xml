@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/kitchen"
+    tools:context=".GameEndScreen">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/End_LBL_Massage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/Default_Margin"
+        android:text="@string/Lost_Message"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/End_Game_Massage_SIze"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        />
+
+    <FrameLayout
+        android:id="@+id/End_BTN_StartGame_Container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/End_LBL_Massage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/Default_Margin">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/End_BTN_StarGame"
+            android:layout_width="220dp"
+            android:layout_height="140dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/chicken_svgrepo_com"
+            android:scaleType="fitCenter"
+            android:tint="#BC5100"
+            android:contentDescription="@string/start_game"
+            android:padding="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/End_LBL_StartGame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/start_game"
+            android:layoutDirection="ltr"
+            android:textStyle="bold"
+            android:textSize="@dimen/Default_StringSize"
+            android:textColor="#C3FDFF"
+            android:gravity="top|center_horizontal"
+            android:paddingTop="58dp"
+            android:paddingRight="20dp"
+            />
+
+    </FrameLayout>
+
+
+</RelativeLayout>
