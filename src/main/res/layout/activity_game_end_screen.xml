@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/kitchen"
+    android:background="@drawable/kitchen_v2"
     tools:context=".GameEndScreen">
 
     <com.google.android.material.textview.MaterialTextView
@@ -18,7 +18,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/End_Game_Massage_SIze"
         android:layout_centerInParent="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         />
 
     <FrameLayout
@@ -31,12 +31,12 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/End_BTN_StarGame"
-            android:layout_width="220dp"
-            android:layout_height="140dp"
+            android:layout_width="@dimen/EndBTN_width"
+            android:layout_height="@dimen/EndBTN_height"
             android:background="@android:color/transparent"
             android:src="@drawable/chicken_svgrepo_com"
             android:scaleType="fitCenter"
-            android:tint="#BC5100"
+            android:tint="@color/orange_500"
             android:contentDescription="@string/start_game"
             android:padding="0dp"
             android:clickable="true"
@@ -51,10 +51,10 @@
             android:layoutDirection="ltr"
             android:textStyle="bold"
             android:textSize="@dimen/Default_StringSize"
-            android:textColor="#C3FDFF"
+            android:textColor="@color/yellow_500"
             android:gravity="top|center_horizontal"
-            android:paddingTop="58dp"
-            android:paddingRight="20dp"
+            android:paddingTop="@dimen/EndLBL_paddingTop"
+            android:paddingRight="@dimen/EndLBL_paddingRight"
             />
 
     </FrameLayout>
