@@ -100,6 +100,9 @@ class MainActivity : AppCompatActivity() {
 
     private var spaceFlag: Int = 0 //Boolean For Spacing The Lines
 
+    private var lastSpawnLane = -1
+
+    private var sameLaneStreak = 0
     private var hits: Int = 0
 
     private var isGameOver: Boolean = false
@@ -202,8 +205,20 @@ class MainActivity : AppCompatActivity() {
     private fun updatePanUI() {
         updateVisibleArray()
         if (spaceFlag == 0) {
-            val randomPan = Random.nextInt(3)
-            isVisible[randomPan] = 1
+            var lane = Random.nextInt(3)
+
+            if (lane == lastSpawnLane) {
+                sameLaneStreak++
+                if (sameLaneStreak >= 2) {
+                    lane = (0..2).filter { it != lastSpawnLane }.random()
+                    sameLaneStreak = 0
+                }
+            } else {
+                lastSpawnLane = lane
+                sameLaneStreak = 0
+            }
+
+            isVisible[lane] = 1
             spaceFlag = 1
         } else
             spaceFlag = 0
