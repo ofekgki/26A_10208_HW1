@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
     private var sameLaneStreak = 0
     private var hits: Int = 0
 
+    private var didNavigateToEndScreen = false
     private var isGameOver: Boolean = false
 
 
@@ -191,7 +192,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkIfGameOver(message: String) {
-        if (isGameOver) {
+        if (isGameOver && !didNavigateToEndScreen) {
+            didNavigateToEndScreen = true
+            timerJob.cancel()
             val intent = Intent(this, GameEndScreen::class.java)
             val bundle = Bundle()
             bundle.putString(Constants.BundleKeys.MESSAGE_KEY, message)
