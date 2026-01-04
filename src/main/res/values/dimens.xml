@@ -5,7 +5,7 @@
     <dimen name="Separator_margin">28dp</dimen>
     <dimen name="Lane_Start">104dp</dimen>
     <dimen name="Default_StringSize">18sp</dimen>
-    <dimen name="End_Game_Massage_SIze">64sp</dimen>
+    <dimen name="End_Game_Massage_Size">64sp</dimen>
     <dimen name="EndBTN_width">200dp</dimen>
     <dimen name="EndBTN_height">140dp</dimen>
     <dimen name="EndLBL_paddingTop">58dp</dimen>

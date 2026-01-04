@@ -12,7 +12,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.hw1.utilities.Constants
 import com.example.hw1.utilities.SignalManager
+import com.example.hw1.utilities.SingleSoundPlayer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -26,65 +28,19 @@ class MainActivity : AppCompatActivity() {
 
     //Roosters
 
-    private lateinit var Main_IMG_Rooster_R: AppCompatImageView
+    private lateinit var Main_IMG_Rooster_1: AppCompatImageView
 
-    private lateinit var Main_IMG_Rooster_M: AppCompatImageView
+    private lateinit var Main_IMG_Rooster_2: AppCompatImageView
 
-    private lateinit var Main_IMG_Rooster_L: AppCompatImageView
+    private lateinit var Main_IMG_Rooster_3: AppCompatImageView
+
+    private lateinit var Main_IMG_Rooster_4: AppCompatImageView
+
+    private lateinit var Main_IMG_Rooster_5: AppCompatImageView
 
     private lateinit var Main_IMG_pans: Array<AppCompatImageView>
 
-    private val isVisible = IntArray(18)
-
-    /*
-    //Pans Row 1
-
-    private lateinit var Main_IMG_Pan1: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan2: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan3: AppCompatImageView
-
-    //Pans Row 2
-
-    private lateinit var Main_IMG_Pan4: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan5: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan6: AppCompatImageView
-
-    //Pans Row 3
-
-    private lateinit var Main_IMG_Pan7: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan8: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan9: AppCompatImageView
-
-    //Pans Row 4
-
-    private lateinit var Main_IMG_Pan10: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan11: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan12: AppCompatImageView
-
-    //Pans Row 5
-
-    private lateinit var Main_IMG_Pan13: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan14: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan15: AppCompatImageView
-
-    //Pans Row 6
-
-    private lateinit var Main_IMG_Pan16: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan17: AppCompatImageView
-
-    private lateinit var Main_IMG_Pan18: AppCompatImageView
-*/
+    private val isVisible = IntArray(30)
 
     //Fabs
 
@@ -94,7 +50,15 @@ class MainActivity : AppCompatActivity() {
 
     //Others
 
-    private var roosterPosition: Int = 1 //0 - Left, 1 - Middle, 2 - Right
+
+    private lateinit var Main_LBL_Score: MaterialTextView
+
+    private var score = 0
+
+    private var scoreFlag: Boolean = false
+
+
+    private var roosterPosition: Int = 2 //0 - 4
 
     private lateinit var timerJob: Job //Timer For Coroutine
 
@@ -134,9 +98,11 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.Main_IMG_Heart_M),
             findViewById(R.id.Main_IMG_Heart_R)
         )
-        Main_IMG_Rooster_R = findViewById(R.id.Main_IMG_Rooster_R)
-        Main_IMG_Rooster_M = findViewById(R.id.Main_IMG_Rooster_M)
-        Main_IMG_Rooster_L = findViewById(R.id.Main_IMG_Rooster_L)
+        Main_IMG_Rooster_1 = findViewById(R.id.Main_IMG_Rooster_1)
+        Main_IMG_Rooster_2 = findViewById(R.id.Main_IMG_Rooster_2)
+        Main_IMG_Rooster_3 = findViewById(R.id.Main_IMG_Rooster_3)
+        Main_IMG_Rooster_4 = findViewById(R.id.Main_IMG_Rooster_4)
+        Main_IMG_Rooster_5 = findViewById(R.id.Main_IMG_Rooster_5)
 
         Main_IMG_pans = arrayOf(
             findViewById(R.id.Main_IMG_Pan1),
@@ -156,11 +122,25 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.Main_IMG_Pan15),
             findViewById(R.id.Main_IMG_Pan16),
             findViewById(R.id.Main_IMG_Pan17),
-            findViewById(R.id.Main_IMG_Pan18)
+            findViewById(R.id.Main_IMG_Pan18),
+            findViewById(R.id.Main_IMG_Pan19),
+            findViewById(R.id.Main_IMG_Pan20),
+            findViewById(R.id.Main_IMG_Pan21),
+            findViewById(R.id.Main_IMG_Pan22),
+            findViewById(R.id.Main_IMG_Pan23),
+            findViewById(R.id.Main_IMG_Pan24),
+            findViewById(R.id.Main_IMG_Pan25),
+            findViewById(R.id.Main_IMG_Pan26),
+            findViewById(R.id.Main_IMG_Pan27),
+            findViewById(R.id.Main_IMG_Pan28),
+            findViewById(R.id.Main_IMG_Pan29),
+            findViewById(R.id.Main_IMG_Pan30)
         )
 
         Main_FAB_Right = findViewById(R.id.Main_FAB_Right)
         Main_FAB_Left = findViewById(R.id.Main_FAB_Left)
+
+        Main_LBL_Score = findViewById(R.id.Main_LBL_Score)
 
     }
 
@@ -168,12 +148,11 @@ class MainActivity : AppCompatActivity() {
         updateRooster()
         Main_FAB_Left.setOnClickListener { view ->
             moveLeft()
-            Log.d("FAB", "Start pressed")
         }
         Main_FAB_Right.setOnClickListener { view ->
             moveRight()
-            Log.d("FAB", "End pressed")
         }
+
 
     }
 
@@ -186,11 +165,19 @@ class MainActivity : AppCompatActivity() {
                 // Refresh UI:
                 updatePanUI()
                 delay(Constants.Timer.DELAY)
+                if (scoreFlag)
+                    updateScore()
+                else
+                    scoreFlag = !scoreFlag
                 checkIfGameOver("Game Over!")
             }
         }
     }
 
+    fun updateScore(){
+        score ++
+        Main_LBL_Score.text = String.format("%03d", score)
+    }
     fun checkIfGameOver(message: String) {
         if (isGameOver && !didNavigateToEndScreen) {
             didNavigateToEndScreen = true
@@ -208,7 +195,7 @@ class MainActivity : AppCompatActivity() {
     private fun updatePanUI() {
         updateVisibleArray()
         if (spaceFlag == 0) {
-            var lane = Random.nextInt(3)
+            var lane = Random.nextInt(5)
 
             if (lane == lastSpawnLane) {
                 sameLaneStreak++
@@ -245,9 +232,11 @@ class MainActivity : AppCompatActivity() {
     //Check If There Is A Collision Between A Rooster And A Pan
     private fun checkForHit() {
         val hitIndex = when (roosterPosition) {
-            0 -> 17
-            1 -> 16
-            else -> 15
+            0 -> 25
+            1 -> 26
+            2 -> 27
+            3 -> 28
+            else -> 29
         }
 
         if (isVisible[hitIndex] == 1) {
@@ -259,6 +248,8 @@ class MainActivity : AppCompatActivity() {
 
     //Calling a Function For Heart Decrease & Calling Functions For Toast & Vibrate
     private fun makeHit() {
+        val ssp = SingleSoundPlayer(this)
+        ssp.playSound(R.raw.hitsound)
         heartDecrease()
         makeToast()
         makeVibration()
@@ -297,11 +288,11 @@ class MainActivity : AppCompatActivity() {
     //Update The Array That Track Visibility Of The Pans
     private fun updateVisibleArray() {
         Main_IMG_pans.forEachIndexed { index, img ->
-            if (img.visibility == View.VISIBLE && index < 15) {
+            if (img.visibility == View.VISIBLE && index < 25) {
                 isVisible[index] = 0
-                isVisible[index + 3] = 1
+                isVisible[index + 5] = 1
             }
-            if (img.visibility == View.VISIBLE && index >= 15) {
+            if (img.visibility == View.VISIBLE && index >= 25) {
                 isVisible[index] = 0
             }
 
@@ -310,20 +301,24 @@ class MainActivity : AppCompatActivity() {
 
     //update rooster position in the Main Activity
     private fun updateRooster() {
-        Main_IMG_Rooster_L.visibility = View.INVISIBLE
-        Main_IMG_Rooster_M.visibility = View.INVISIBLE
-        Main_IMG_Rooster_R.visibility = View.INVISIBLE
+        Main_IMG_Rooster_1.visibility = View.INVISIBLE
+        Main_IMG_Rooster_2.visibility = View.INVISIBLE
+        Main_IMG_Rooster_3.visibility = View.INVISIBLE
+        Main_IMG_Rooster_4.visibility = View.INVISIBLE
+        Main_IMG_Rooster_5.visibility = View.INVISIBLE
 
         when (roosterPosition) {
-            0 -> Main_IMG_Rooster_L.visibility = View.VISIBLE
-            1 -> Main_IMG_Rooster_M.visibility = View.VISIBLE
-            2 -> Main_IMG_Rooster_R.visibility = View.VISIBLE
+            0 -> Main_IMG_Rooster_1.visibility = View.VISIBLE
+            1 -> Main_IMG_Rooster_2.visibility = View.VISIBLE
+            2 -> Main_IMG_Rooster_3.visibility = View.VISIBLE
+            3 -> Main_IMG_Rooster_4.visibility = View.VISIBLE
+            4 -> Main_IMG_Rooster_5.visibility = View.VISIBLE
         }
     }
 
     //updating the rooster position in the variable for right move
     private fun moveRight() {
-        if (roosterPosition < 2) {
+        if (roosterPosition < 4) {
             roosterPosition++
             updateRooster()
         }
